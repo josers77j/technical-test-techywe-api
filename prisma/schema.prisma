@@ -1,0 +1,68 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows", "linux-musl", "debian-openssl-1.1.x", "debian-openssl-3.0.x"] // this is because im using macos
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String?
+  lastname String?
+  email    String    @unique
+  password String?
+
+  products Product[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String?
+
+  products Product[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal
+  createdAt   DateTime  @default(now())
+  categoryId  Int?
+  userId      Int?
+
+  category    Category? @relation(fields: [categoryId], references: [id])
+  user        User?     @relation(fields: [userId], references: [id])
+}
+
+
+/*
+Model created with the following queries
+
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(50),
+  lastname VARCHAR(50),
+  email VARCHAR(255) UNIQUE,
+  password VARCHAR(150)
+);
+
+CREATE TABLE categories (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(150)
+);
+
+CREATE TABLE products (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  price DECIMAL(10, 2) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  categoryId INT,
+  userId INT,
+  FOREIGN KEY (categoryId) REFERENCES categories(id),
+  FOREIGN KEY (userId) REFERENCES users(id)
+); */
