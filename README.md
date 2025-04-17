@@ -17,7 +17,7 @@ This project is an API built with [NestJS](https://nestjs.com) and uses [Prisma]
 
 ```bash
 git clone https://github.com/josers77j/technical-test-techywe-api.git
-cd technical-test-api
+cd technical-test-techywe-api
 ```
 
 ### 2. Configure environment variables
@@ -25,7 +25,7 @@ cd technical-test-api
 Create a .env file in the root of the project
 
 ```properties
-DATABASE_URL=mysql://root:password123@localhost:3306/managerDB
+DATABASE_URL=
 
 DB_NAME=
 DB_USERNAME=
@@ -49,7 +49,7 @@ npm install
 ### 2. Start the database with Docker
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 This will start a container with MySQL configured according to the environment variables defined in the .env file.
