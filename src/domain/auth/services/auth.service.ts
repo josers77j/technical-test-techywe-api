@@ -29,7 +29,7 @@ export class AuthService {
 
     if (!user || !isPasswordValid) {
       throw new UnauthorizedException(
-        'usuario u contraseña invalidos, intente de nuevo.',
+        'user or password invalid, please try again',
       );
     }
 

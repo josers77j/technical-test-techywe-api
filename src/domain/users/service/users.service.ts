@@ -8,6 +8,12 @@ import {
 } from '@nestjs/common';
 import { UsersRepository } from '../repository/users.repository';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { GenericQueryFilterDto } from 'src/dto/generic-query-filters.dto';
+import {
+  UpdateUserBasicInformationDto,
+  UpdateUserPasswordDto,
+} from '../dto/update-user.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -48,6 +54,77 @@ export class UsersService {
         );
 
       return userCreated;
+    } catch (err) {
+      Logger.error(err);
+      if (err instanceof UnprocessableEntityException) throw err;
+      throw new InternalServerErrorException(
+        'ups... There was an error on the server side.',
+      );
+    }
+  }
+
+  async findAll<T>(queryFilter: GenericQueryFilterDto<T>) {
+    try {
+      return await this.usersRepository.findAll(queryFilter);
+    } catch (err) {
+      Logger.error(err);
+      if (err instanceof UnprocessableEntityException) throw err;
+      throw new InternalServerErrorException(
+        'ups... There was an error on the server side.',
+      );
+    }
+  }
+
+  async updateBasicInformation(
+    id: number,
+    user: UpdateUserBasicInformationDto,
+  ) {
+    try {
+      const userupdated = await this.usersRepository.updateBasicInformation(
+        id,
+        user,
+      );
+      if (!userupdated)
+        throw new UnprocessableEntityException(
+          'There was an error updating the user information',
+        );
+      return { message: 'User information updated successfully' };
+    } catch (err) {
+      Logger.error(err);
+      if (err instanceof UnprocessableEntityException) throw err;
+      throw new InternalServerErrorException(
+        'ups... There was an error on the server side.',
+      );
+    }
+  }
+
+  async updatePassword(id: number, { password }: UpdateUserPasswordDto) {
+    try {
+      const userupdated = await this.usersRepository.updatePassword(id, {
+        password: await bcrypt.hash(password, 10),
+      });
+      if (!userupdated)
+        throw new UnprocessableEntityException(
+          'There was an error updating the user password',
+        );
+      return { message: 'User password updated successfully' };
+    } catch (err) {
+      Logger.error(err);
+      if (err instanceof UnprocessableEntityException) throw err;
+      throw new InternalServerErrorException(
+        'ups... There was an error on the server side.',
+      );
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      const userDeleted = await this.usersRepository.delete(id);
+      if (!userDeleted)
+        throw new UnprocessableEntityException(
+          'There was an error deleting the user',
+        );
+      return { message: 'User deleted successfully' };
     } catch (err) {
       Logger.error(err);
       if (err instanceof UnprocessableEntityException) throw err;
