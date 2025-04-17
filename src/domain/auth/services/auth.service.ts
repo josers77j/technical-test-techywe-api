@@ -22,6 +22,7 @@ export class AuthService {
       email: emailFromDb,
       name,
       lastname,
+      id,
     } = user;
 
     const isPasswordValid =
@@ -33,7 +34,7 @@ export class AuthService {
       );
     }
 
-    const payload = { emailFromDb, name, lastname };
+    const payload = { emailFromDb, name, lastname, id };
 
     const token = await this.jwtService.signAsync(payload);
 
