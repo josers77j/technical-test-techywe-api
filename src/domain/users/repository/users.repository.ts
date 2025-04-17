@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { User } from '../entities/user.entity';
 import { builderPagination } from 'src/utils/pagination-builder.helpers';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import { GenericQueryFilterDto } from 'src/dto/generic-query-filters.dto';
 import {
   UpdateUserBasicInformationDto,

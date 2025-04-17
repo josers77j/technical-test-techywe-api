@@ -53,7 +53,9 @@ export class UsersService {
           'There was an error creating the user',
         );
 
-      return userCreated;
+      return {
+        message: 'User created successfully',
+      };
     } catch (err) {
       Logger.error(err);
       if (err instanceof UnprocessableEntityException) throw err;
