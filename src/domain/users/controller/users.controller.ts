@@ -72,7 +72,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'User deleted successfully.' })
   @ApiResponse({ status: 422, description: 'Error deleting the user.' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  deleteUser(@Param('id') id: number) {
-    return this.usersService.delete(+id);
+  remove(@Param('id') id: number) {
+    return this.usersService.remove(+id);
   }
 }

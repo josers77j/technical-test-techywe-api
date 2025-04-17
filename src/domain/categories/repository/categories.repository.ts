@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Category, Prisma } from '@prisma/client';
-import { PrismaService } from 'prisma/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 import { GenericQueryFilterDto } from 'src/dto/generic-query-filters.dto';
-import { builderPagination } from 'src/utils/pagination-builder.helpers';
+import { builderPagination } from '../../../utils/pagination-builder.helpers';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 
 import { UpdateCategoryDto } from '../dto/update-category.dto';

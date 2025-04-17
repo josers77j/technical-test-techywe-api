@@ -119,9 +119,9 @@ export class UsersService {
     }
   }
 
-  async delete(id: number) {
+  async remove(id: number) {
     try {
-      const userDeleted = await this.usersRepository.delete(id);
+      const userDeleted = await this.usersRepository.remove(id);
       if (!userDeleted)
         throw new UnprocessableEntityException(
           'There was an error deleting the user',
