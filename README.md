@@ -6,7 +6,7 @@ This project is an API built with [NestJS](https://nestjs.com) and uses [Prisma]
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (version 16 or higher)
+- [Node.js](https://nodejs.org/) (version 22.9.0)
 - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 
 ---
